@@ -3,6 +3,11 @@
    Global styles for the Django version of the Dr. Matheus Bomfim website.
    Includes responsive layout, hero carousel, service sections,
    WhatsApp floating button, and HelpUS developer attribution.
+
+   Update notes:
+   - Hero background was adjusted to look cleaner and more premium.
+   - Carousel images now behave more like ambient background.
+   - Stronger overlay + blur reduce visual competition with headline and portraits.
 */
 
 :root {
@@ -128,7 +133,8 @@ video {
   transition: opacity 1s ease;
   background-size: cover;
   background-position: center;
-  transform: scale(1.05);
+  filter: blur(6px) brightness(0.5);
+  transform: scale(1.08);
 }
 
 .hero-slide.active {
@@ -139,14 +145,14 @@ video {
   background:
     linear-gradient(
       90deg,
-      rgba(4, 10, 18, 0.78) 0%,
-      rgba(4, 10, 18, 0.58) 42%,
-      rgba(4, 10, 18, 0.30) 100%
+      rgba(4, 10, 18, 0.92) 0%,
+      rgba(4, 10, 18, 0.85) 40%,
+      rgba(4, 10, 18, 0.75) 100%
     ),
     linear-gradient(
       180deg,
-      rgba(4, 10, 18, 0.22) 0%,
-      rgba(4, 10, 18, 0.58) 100%
+      rgba(4, 10, 18, 0.85) 0%,
+      rgba(4, 10, 18, 0.95) 100%
     );
 }
 
@@ -546,8 +552,8 @@ video {
     background:
       linear-gradient(
         180deg,
-        rgba(4, 10, 18, 0.56) 0%,
-        rgba(4, 10, 18, 0.74) 100%
+        rgba(4, 10, 18, 0.78) 0%,
+        rgba(4, 10, 18, 0.9) 100%
       );
   }
 
