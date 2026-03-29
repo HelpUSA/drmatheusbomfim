@@ -16,10 +16,10 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-change-me-before-pr
 # DEBUG control via env
 DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
 
-# 🔥 FIX: allow Vercel domains + env override
+# Allow local, Vercel, and custom production hosts, with environment override support.
 ALLOWED_HOSTS = os.getenv(
     'DJANGO_ALLOWED_HOSTS',
-    '127.0.0.1,localhost,.vercel.app'
+    '127.0.0.1,localhost,.vercel.app,drmatheusbomfim.helpusbr.com'
 ).split(',')
 
 # ================= APPS =================
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
-    # 🔥 IMPORTANT for static files in production
+    # Important for static files in production.
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -102,7 +102,7 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# 🔥 MODERN DJANGO 5 CONFIG (REPLACES STATICFILES_STORAGE)
+# Django 5.x recommended storage configuration.
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
