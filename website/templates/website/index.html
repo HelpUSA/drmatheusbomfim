@@ -1,5 +1,8 @@
 {# File: website/templates/website/index.html #}
-{# Purpose: Main homepage for the Dr. Matheus Bomfim Django website. #}
+{# Purpose:
+   Main homepage for the Dr. Matheus Bomfim Django website.
+   Updated with a mobile hamburger menu and improved premium structure.
+#}
 {% extends 'website/base.html' %}
 {% load static %}
 
@@ -17,7 +20,19 @@
         </div>
       </a>
 
-      <nav class="nav">
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="site-menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav" id="site-menu">
         <a href="#inicio">Início</a>
         <a href="#facetas">Facetas</a>
         <a href="#tratamentos">Tratamentos</a>
@@ -246,14 +261,33 @@
 <script>
   (function () {
     const slides = Array.from(document.querySelectorAll('.hero-slide'));
-    if (!slides.length) return;
+    if (slides.length) {
+      let activeIndex = 0;
+      window.setInterval(function () {
+        slides[activeIndex].classList.remove('active');
+        activeIndex = (activeIndex + 1) % slides.length;
+        slides[activeIndex].classList.add('active');
+      }, 4500);
+    }
 
-    let activeIndex = 0;
-    window.setInterval(function () {
-      slides[activeIndex].classList.remove('active');
-      activeIndex = (activeIndex + 1) % slides.length;
-      slides[activeIndex].classList.add('active');
-    }, 4500);
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('#site-menu');
+
+    if (toggle && menu) {
+      toggle.addEventListener('click', function () {
+        const isOpen = menu.classList.toggle('is-open');
+        toggle.classList.toggle('is-open', isOpen);
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      menu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          menu.classList.remove('is-open');
+          toggle.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
   })();
 </script>
 {% endblock %}
