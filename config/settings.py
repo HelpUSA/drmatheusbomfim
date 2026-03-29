@@ -39,7 +39,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
-    # 🔥 recommended for production static serving
+    # 🔥 IMPORTANT for static files in production
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -95,11 +95,22 @@ USE_TZ = True
 # ================= STATIC FILES =================
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'website' / 'static']
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'website' / 'static'
+]
+
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# 🔥 whitenoise config (important for production)
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# 🔥 MODERN DJANGO 5 CONFIG (REPLACES STATICFILES_STORAGE)
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # ================= DEFAULT =================
 
