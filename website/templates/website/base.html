@@ -1,0 +1,17 @@
+{# File: website/templates/website/base.html #}
+{# Purpose: Base HTML layout for the website. #}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Dr. Matheus Bomfim | Odontologia Estética em João Pessoa{% endblock %}</title>
+    <meta name="description" content="Consultório odontológico com foco em facetas em resina, estética do sorriso, reabilitação funcional e planejamento personalizado em João Pessoa.">
+    <link rel="icon" type="image/jpeg" href="{% static 'website/mid/logo-dr-matheus.jpg' %}">
+    <link rel="stylesheet" href="{% static 'website/css/styles.css' %}">
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+  </body>
+</html>

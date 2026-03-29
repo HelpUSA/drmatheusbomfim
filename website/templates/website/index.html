@@ -1,0 +1,259 @@
+{# File: website/templates/website/index.html #}
+{# Purpose: Main homepage for the Dr. Matheus Bomfim Django website. #}
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+  <a class="whatsapp-float" href="{{ whatsapp_href }}" target="_blank" rel="noreferrer">WhatsApp</a>
+
+  <header class="header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#inicio">
+        <img src="{% static 'website/mid/logo-dr-matheus.jpg' %}" alt="Dr. Matheus Bomfim" width="60" height="60">
+        <div>
+          <strong>Dr. Matheus Bomfim</strong>
+          <span>Odontologia estética em João Pessoa</span>
+        </div>
+      </a>
+
+      <nav class="nav">
+        <a href="#inicio">Início</a>
+        <a href="#facetas">Facetas</a>
+        <a href="#tratamentos">Tratamentos</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="inicio" class="hero">
+    <div class="hero-slides" aria-hidden="true">
+      {% for slide in hero_slides %}
+      <div
+        class="hero-slide {% if forloop.first %}active{% endif %}"
+        style="background-image: url('{% static slide %}')"
+      ></div>
+      {% endfor %}
+    </div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+      <div class="hero-copy">
+        <span class="eyebrow">Estética do sorriso com identidade natural</span>
+
+        <h1>Facetas em resina com planejamento personalizado, segurança e sofisticação.</h1>
+
+        <p>
+          Um site institucional em Django, leve e responsivo, pensado para apresentar o consultório do Dr. Matheus Bomfim com foco em facetas em resina, reabilitação estética e atendimento premium em João Pessoa.
+        </p>
+
+        <div class="cta-row">
+          <a class="button button-primary" href="{{ whatsapp_href }}" target="_blank" rel="noreferrer">
+            Agendar pelo WhatsApp
+          </a>
+
+          <a class="button button-secondary" href="{{ instagram_href }}" target="_blank" rel="noreferrer">
+            Ver Instagram
+          </a>
+        </div>
+
+        <ul class="hero-points">
+          <li>Foco em facetas em resina</li>
+          <li>Atendimento humanizado</li>
+          <li>Estética e função em equilíbrio</li>
+        </ul>
+      </div>
+
+      <div class="hero-card">
+        <div class="portrait-stack">
+          <div class="portrait-card portrait-main">
+            <img src="{% static 'website/mid/dr-matheus-standing.png' %}" alt="Dr. Matheus Bomfim em pé">
+          </div>
+
+          <div class="portrait-card portrait-secondary">
+            <img src="{% static 'website/mid/dr-matheus-seated.png' %}" alt="Dr. Matheus Bomfim sentado">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="metrics-section">
+    <div class="container metrics-grid">
+      <article class="metric-card">
+        <strong>Facetas em resina</strong>
+        <span>Procedimento de destaque para quem busca transformação estética com naturalidade.</span>
+      </article>
+      <article class="metric-card">
+        <strong>Planejamento individual</strong>
+        <span>Cada sorriso recebe uma proposta ajustada ao rosto, estilo e necessidade funcional.</span>
+      </article>
+      <article class="metric-card">
+        <strong>João Pessoa</strong>
+        <span>Presença local com comunicação digital preparada para captação via Instagram e WhatsApp.</span>
+      </article>
+    </div>
+  </section>
+
+  <section id="facetas" class="section">
+    <div class="container two-column">
+      <div>
+        <span class="section-tag">Serviço principal</span>
+        <h2>Facetas em resina: estética, personalidade e resultado harmônico.</h2>
+        <p>
+          A página principal foi estruturada para posicionar esse serviço como protagonista, com destaque visual, argumentos de valor, prova de autoridade e atalhos rápidos para conversão.
+        </p>
+        <p>
+          A proposta do site é valorizar o estilo de comunicação já percebido no Instagram: estética do sorriso, reabilitação natural, segurança e planejamento personalizado.
+        </p>
+      </div>
+
+      <div class="feature-panel">
+        <h3>O que o paciente percebe aqui</h3>
+        <ul>
+          <li>Resultado natural e elegante</li>
+          <li>Explicação clara do processo</li>
+          <li>Confiança para iniciar pelo WhatsApp</li>
+          <li>Marca pessoal forte do profissional</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="tratamentos" class="section section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <span class="section-tag">Tratamentos</span>
+        <h2>Estrutura de serviços pronta para crescer junto com o consultório.</h2>
+      </div>
+
+      <div class="cards-grid">
+        {% for service in services %}
+        <article class="service-card">
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre" class="section">
+    <div class="container about-grid">
+      <div class="about-media">
+        <div class="about-video-wrap">
+          <video controls muted playsinline poster="{% static 'website/mid/hero-bg-2.jpg' %}">
+            <source src="{% static 'website/mid/video-matheus.mp4' %}" type="video/mp4">
+            Seu navegador não suporta vídeo HTML5.
+          </video>
+        </div>
+      </div>
+
+      <div>
+        <span class="section-tag">Sobre o consultório</span>
+        <h2>Presença digital premium, pronta para tráfego orgânico, anúncios e captação local.</h2>
+        <p>
+          O projeto foi montado em Django para que você tenha experiência real com Python full stack em um site simples, limpo e fácil de manter. Ele também pode evoluir depois para blog, formulário de captação, integrações e área administrativa.
+        </p>
+        <div class="bullet-grid">
+          {% for item in differentiators %}
+          <div class="bullet-card">{{ item }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <span class="section-tag">Como funciona</span>
+        <h2>Jornada simples para aumentar conversão.</h2>
+      </div>
+      <div class="steps-grid">
+        {% for step in steps %}
+        <article class="step-card">
+          <span>0{{ forloop.counter }}</span>
+          <p>{{ step }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-grid">
+      <div>
+        <span class="section-tag">Dúvidas frequentes</span>
+        <h2>Conteúdo pronto para pacientes que chegam pelo Instagram e WhatsApp.</h2>
+      </div>
+      <div class="faq-list">
+        {% for faq in faqs %}
+        <details class="faq-item">
+          <summary>{{ faq.question }}</summary>
+          <p>{{ faq.answer }}</p>
+        </details>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" class="section cta-section">
+    <div class="container cta-panel">
+      <div>
+        <span class="section-tag">Contato</span>
+        <h2>Pronto para receber pacientes no celular e no computador.</h2>
+        <p>
+          O botão de WhatsApp já está configurado com o número informado e o Instagram também já foi incluído no projeto.
+        </p>
+      </div>
+      <div class="cta-actions">
+        <a class="button button-primary" href="{{ whatsapp_href }}" target="_blank" rel="noreferrer">
+          WhatsApp: (83) 9306-2224
+        </a>
+        <a class="button button-secondary" href="{{ instagram_href }}" target="_blank" rel="noreferrer">
+          @dr.matheus_bomfim
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-wrap">
+      <div>
+        <strong>Dr. Matheus Bomfim</strong>
+        <p>Implantodontia, estética do sorriso, facetas em resina e planejamento personalizado.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#inicio">Início</a>
+        <a href="#facetas">Facetas</a>
+        <a href="#tratamentos">Tratamentos</a>
+        <a href="{{ instagram_href }}" target="_blank" rel="noreferrer">Instagram</a>
+      </div>
+    </div>
+
+    <div class="container developer-credit">
+      <a href="{{ helpus_href }}" target="_blank" rel="noreferrer">
+        <img src="{% static 'website/mid/helpus-logo.png' %}" alt="HelpUS logo" width="48" height="48">
+        <span>Desenvolvido por <strong>HelpUS</strong></span>
+      </a>
+    </div>
+  </footer>
+</main>
+
+<script>
+  (function () {
+    const slides = Array.from(document.querySelectorAll('.hero-slide'));
+    if (!slides.length) return;
+
+    let activeIndex = 0;
+    window.setInterval(function () {
+      slides[activeIndex].classList.remove('active');
+      activeIndex = (activeIndex + 1) % slides.length;
+      slides[activeIndex].classList.add('active');
+    }, 4500);
+  })();
+</script>
+{% endblock %}

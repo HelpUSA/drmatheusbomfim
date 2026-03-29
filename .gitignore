@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Django
+db.sqlite3
+*.log
+staticfiles/
+
+# Virtual env
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Node (caso use algo junto)
+node_modules/
+
+# Env
+.env
+.env.*
