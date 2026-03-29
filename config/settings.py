@@ -2,14 +2,27 @@
 # Purpose:
 # Django settings for the Dr. Matheus Bomfim website.
 # This project is intentionally simple and focused on a small institutional website.
+# Updated for production deployment (Vercel compatibility + host fix).
+
 from pathlib import Path
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# ================= SECURITY =================
+
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-change-me-before-production')
+
+# DEBUG control via env
 DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
+
+# 🔥 FIX: allow Vercel domains + env override
+ALLOWED_HOSTS = os.getenv(
+    'DJANGO_ALLOWED_HOSTS',
+    '127.0.0.1,localhost,.vercel.app'
+).split(',')
+
+# ================= APPS =================
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -21,8 +34,14 @@ INSTALLED_APPS = [
     'website',
 ]
 
+# ================= MIDDLEWARE =================
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    # 🔥 recommended for production static serving
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -30,6 +49,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# ================= URL / TEMPLATES =================
 
 ROOT_URLCONF = 'config.urls'
 
@@ -51,6 +72,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.asgi.application'
 
+# ================= DATABASE =================
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -58,15 +81,26 @@ DATABASES = {
     }
 }
 
+# ================= AUTH =================
+
 AUTH_PASSWORD_VALIDATORS = []
+
+# ================= INTERNATIONALIZATION =================
 
 LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Fortaleza'
 USE_I18N = True
 USE_TZ = True
 
+# ================= STATIC FILES =================
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'website' / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# 🔥 whitenoise config (important for production)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# ================= DEFAULT =================
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
